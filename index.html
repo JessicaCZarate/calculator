@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single file UI Calculator</title>
+    <!-- google font INTER -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Inter&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #212121;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .container {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        border-radius: 1.5625rem;
+        background: #fd8016;
+        flex: 1 1 auto;
+        padding: 1rem 0;
+      }
+
+      .container .formstyle {
+        display: grid;
+        grid-template-rows: 1fr 2fr;
+        align-self: center;
+        margin: auto;
+        width: 23.4375rem;
+        height: 41.6875rem;
+        border-radius: 0.9375rem;
+        background: #efefef;
+        box-shadow: 4px 4px 20px 20px rgba(0, 0, 0, 0.3);
+      }
+      .answer_container,
+      .form_button {
+        padding: 0 1.56rem;
+      }
+      .answer_container {
+        display: grid;
+        place-items: end stretch;
+        padding-bottom: 1rem;
+      }
+      .answer {
+        display: grid;
+      }
+      #calc {
+        width: 20rem;
+        outline: none;
+        border: none;
+        background: none;
+        padding: 0;
+        font-size: 3.5em;
+        text-align: right;
+      }
+      .form_button {
+        display: grid;
+        grid-template-rows: repeat(5, 1fr);
+        place-items: stretch center;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.9rem;
+      }
+      .row_bot {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.9rem;
+      }
+      .col {
+        width: 4.375rem;
+        height: 4.375rem;
+        border-radius: 3.125rem;
+        background: linear-gradient(180deg, #ebedf0 0%, #f2f4f6 100%);
+        box-shadow: 5px 5px 10px 0px rgba(117, 127, 138, 0.5),
+          -5px -5px 10px 0px rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background: none;
+        font-size: 1.9em;
+        transition: transform 0.2s ease-in-out;
+      }
+      .AC,
+      .DE,
+      .modulo {
+        color: rgba(117, 127, 138, 0.5);
+      }
+      .divide,
+      .multiply,
+      .minus,
+      .plus,
+      .equal {
+        color: #fd8016;
+      }
+      .num {
+        color: rgba(0, 0, 0, 0.75);
+      }
+      .col1 {
+        width: 9.6875rem;
+        height: 4.375rem;
+        border-radius: 3.125rem;
+        background: linear-gradient(180deg, #ebedf0 0%, #f2f4f6 100%);
+        box-shadow: 5px 5px 10px 0px rgba(117, 127, 138, 0.5),
+          -5px -5px 10px 0px rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+      }
+      .active {
+        box-shadow: 5px 5px 10px -2px rgba(117, 127, 138, 0.5) inset,
+          -5px -5px 10px -2px rgba(255, 255, 255, 0.5) inset;
+      }
+      .line {
+        width: 4.6875rem;
+        height: 0.3125rem;
+        background: rgba(117, 127, 138, 0.5);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+        margin-bottom: 0.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="formstyle">
+        <div class="answer_container">
+          <!-- This input box shows the button pressed by the user in calculator. -->
+          <form name="form_answer" class="answer">
+            <input id="calc" type="text" name="answer" />
+          </form>
+        </div>
+        <div class="form_button">
+          <div class="row">
+            <input
+              type="button"
+              value="AC"
+              onclick="form_answer.answer.value = ' ' "
+              class="col AC btn"
+            />
+            <input
+              type="button"
+              value="DE"
+              onclick="form_answer.answer.value = form_answer.answer.value.slice(0, -1)"
+              class="col DE btn"
+            />
+            <input
+              type="button"
+              value="%"
+              onclick="form_answer.answer.value += '%' "
+              class="col modulo btn"
+            />
+            <input
+              type="button"
+              value="÷"
+              onclick="form_answer.answer.value += '/' "
+              class="col divide btn"
+            />
+          </div>
+          <div class="row">
+            <input
+              type="button"
+              value="7"
+              onclick="form_answer.answer.value += '7' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="8"
+              onclick="form_answer.answer.value += '8' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="9"
+              onclick="form_answer.answer.value += '9' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="*"
+              onclick="form_answer.answer.value += '*' "
+              class="col multiply btn"
+            />
+          </div>
+          <div class="row">
+            <input
+              type="button"
+              value="4"
+              onclick="form_answer.answer.value += '4' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="5"
+              onclick="form_answer.answer.value += '5' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="6"
+              onclick="form_answer.answer.value += '6' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="-"
+              onclick="form_answer.answer.value += '-' "
+              class="col minus btn"
+            />
+          </div>
+          <div class="row">
+            <input
+              type="button"
+              value="1"
+              onclick="form_answer.answer.value += '1' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="2"
+              onclick="form_answer.answer.value += '2' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="3"
+              onclick="form_answer.answer.value += '3' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="+"
+              onclick="form_answer.answer.value += '+' "
+              class="col plus btn"
+            />
+          </div>
+          <div class="row_bot">
+            <input
+              type="button"
+              value="0"
+              onclick="form_answer.answer.value += '0' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="."
+              onclick="form_answer.answer.value += '.' "
+              class="col num btn"
+            />
+            <input
+              type="button"
+              value="="
+              onclick="form_answer.answer.value = eval(form_answer.answer.value) "
+              class="col col1 equal btn"
+            />
+          </div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
